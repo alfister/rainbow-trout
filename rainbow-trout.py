@@ -13,7 +13,7 @@ class App:
 
     def draw(self):
         pyxel.cls(0)
-        pyxel.blt(-2, 0, 0, 0, 0, 64, 32)
+        pyxel.blt(-1, 0, 0, 0, 0, 64, 32)
         color = None
         for y in range(32):
             for x in range(64):
@@ -33,9 +33,9 @@ class App:
                         color = 2 # purple
                     pyxel.pset(x, y, color)
                 elif pyxel.pget(x, y) == 1: # outline
-                    pyxel.pset(x, y, 0)
+                    pyxel.pset(x, y, 1)
                 elif pyxel.pget(x, y) == 0: # background
-                    pyxel.pset(x, y, 7)
-        pyxel.pset(10, 14, 7) # eye
+                    pyxel.pset(x, y, 6)
+        pyxel.pset(11, 14, 7) # eye
 
 App()
