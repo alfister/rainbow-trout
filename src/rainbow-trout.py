@@ -3,7 +3,7 @@ import pyxel
 class App:
     def __init__(self):
         pyxel.init(64, 32, title="Rainbow Trout")
-        pyxel.load("rainbow-trout.pyxres")
+        pyxel.load("resources.pyxres")
         pyxel.run(self.update, self.draw)
 
     def update(self):
