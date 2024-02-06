@@ -1,4 +1,4 @@
-Not [*The* Rainbow Fish](https://en.wikipedia.org/wiki/The_Rainbow_Fish), but a rainbow fish.
+Inspired by [The Rainbow Fish](https://en.wikipedia.org/wiki/The_Rainbow_Fish).
 
 Made with [Pyxel](https://github.com/kitao/pyxel).
 
