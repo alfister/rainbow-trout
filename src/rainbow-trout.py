@@ -1,15 +1,18 @@
-from collections import namedtuple
 import pyxel
+from helpers import Vec2
 
-Point = namedtuple("Point", ["x", "y"])
+WIDTH = 64
+HEIGHT = 32
 
-EYE = Point(11, 14)
+EYE = Vec2(11, 14)
+BUBBLE_R = 2
 
 class App:
     def __init__(self):
-        pyxel.init(64, 32, title="Rainbow Trout")
+        pyxel.init(WIDTH, HEIGHT, title="Rainbow Trout")
         pyxel.load("resources.pyxres")
         pyxel.mouse(False)
+        self.bubbles = []
         pyxel.run(self.update, self.draw)
 
     def update(self):
@@ -17,14 +20,23 @@ class App:
            pyxel.btnp(pyxel.KEY_ESCAPE):
             pyxel.quit()
 
+        if pyxel.btnp(pyxel.MOUSE_BUTTON_LEFT):
+            self.bubbles.append(Vec2(pyxel.mouse_x, pyxel.mouse_y))
+
+        for i, _ in enumerate(self.bubbles):
+            self.bubbles[i].x += pyxel.rndi(-1, 1)
+            self.bubbles[i].y -= 1
+
+            if self.bubbles[i].x + BUBBLE_R < 0 or self.bubbles[i].y + BUBBLE_R < 0:
+                del self.bubbles[i]
+
     def draw(self):
         pyxel.cls(0)
         pyxel.blt(-1, 0, 0, 0, 0, 64, 32)
 
         color = None
-        for y in range(32):
-            for x in range(64):
-                
+        for y in range(HEIGHT):
+            for x in range(WIDTH):
                 if x == pyxel.mouse_x and y == pyxel.mouse_y:
                     pyxel.pset(x, y, 0)
                     continue
@@ -53,5 +65,8 @@ class App:
                     color = 6
 
                 pyxel.pset(x, y, color)
+
+        for bubble in self.bubbles:
+            pyxel.circb(bubble.x, bubble.y, BUBBLE_R, 0)
 
 App()
