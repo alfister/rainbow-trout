@@ -4,6 +4,7 @@ class App:
     def __init__(self):
         pyxel.init(64, 32, title="Rainbow Trout")
         pyxel.load("resources.pyxres")
+        pyxel.mouse(False)
         pyxel.run(self.update, self.draw)
 
     def update(self):
@@ -17,6 +18,10 @@ class App:
         color = None
         for y in range(32):
             for x in range(64):
+                if x == pyxel.mouse_x and y == pyxel.mouse_y:
+                    pyxel.pset(x, y, 0)
+                    continue
+
                 if pyxel.pget(x, y) == 7: # body
                     n = pyxel.noise(x / 10, y / 10, pyxel.frame_count / 45)
                     if n > 0.6:
@@ -36,6 +41,7 @@ class App:
                     pyxel.pset(x, y, 1)
                 elif pyxel.pget(x, y) == 0: # background
                     pyxel.pset(x, y, 6)
+
         pyxel.pset(11, 14, 7) # eye
 
 App()
