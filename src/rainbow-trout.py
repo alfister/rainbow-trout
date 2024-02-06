@@ -1,4 +1,9 @@
+from collections import namedtuple
 import pyxel
+
+Point = namedtuple("Point", ["x", "y"])
+
+EYE = Point(11, 14)
 
 class App:
     def __init__(self):
@@ -15,11 +20,17 @@ class App:
     def draw(self):
         pyxel.cls(0)
         pyxel.blt(-1, 0, 0, 0, 0, 64, 32)
+
         color = None
         for y in range(32):
             for x in range(64):
+                
                 if x == pyxel.mouse_x and y == pyxel.mouse_y:
                     pyxel.pset(x, y, 0)
+                    continue
+
+                if x == EYE.x and y == EYE.y:
+                    pyxel.pset(x, y, 7)
                     continue
 
                 if pyxel.pget(x, y) == 7: # body
@@ -36,12 +47,11 @@ class App:
                         color = 5 # blue
                     else:
                         color = 2 # purple
-                    pyxel.pset(x, y, color)
                 elif pyxel.pget(x, y) == 1: # outline
-                    pyxel.pset(x, y, 1)
+                    color = 1
                 elif pyxel.pget(x, y) == 0: # background
-                    pyxel.pset(x, y, 6)
+                    color = 6
 
-        pyxel.pset(11, 14, 7) # eye
+                pyxel.pset(x, y, color)
 
 App()
